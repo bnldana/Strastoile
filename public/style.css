@@ -1,0 +1,201 @@
+@font-face{
+    font-family: "TiemposHeadline-Bold";
+    src: url("https://db.onlinewebfonts.com/t/171d30888ae4dbce3d0224490887fb87.eot");
+    src: url("https://db.onlinewebfonts.com/t/171d30888ae4dbce3d0224490887fb87.eot?#iefix")format("embedded-opentype"),
+        url("https://db.onlinewebfonts.com/t/171d30888ae4dbce3d0224490887fb87.woff")format("woff"),
+        url("https://db.onlinewebfonts.com/t/171d30888ae4dbce3d0224490887fb87.woff2")format("woff2"),
+        url("https://db.onlinewebfonts.com/t/171d30888ae4dbce3d0224490887fb87.ttf")format("truetype"),
+        url("https://db.onlinewebfonts.com/t/171d30888ae4dbce3d0224490887fb87.svg#TiemposHeadline-Bold")format("svg");
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+}
+
+@font-face {
+    font-family: 'Copyright Klim Type Foundry';
+    src: url('fonts/TiemposHeadline-Regular.woff2') format('woff2'),
+        url('fonts/TiemposHeadline-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Copyright Klim Type Foundry';
+    src: url('fonts/TiemposText-Bold.woff2') format('woff2'),
+        url('fonts/TiemposText-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Graphik';
+    src: url('fonts/Graphik-Regular.woff2') format('woff2'),
+        url('fonts/Graphik-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: url('fonts/Graphik-Medium.woff2') format('woff2'),
+        url('fonts/Graphik-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: url('fonts/Graphik-Semibold.woff2') format('woff2'),
+        url('fonts/Graphik-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: url('fonts/Graphik-Bold.woff2') format('woff2'),
+        url('fonts/Graphik-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+* {
+    box-sizing: border-box;
+    font-family: 'Graphik' !important;
+}
+
+p, strong {
+    color: white !important;
+}
+
+::selection {
+    background-color: #40BCF4;
+    color: white;
+}
+
+body {
+    margin: 0 5%;
+    background-color: #14181c;
+}
+
+#content-wrap {
+    width: 950px;
+}
+
+.frise {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    padding: 15px 15px;
+    background-color: #456;
+    margin-left: calc(50vw - 50%* 2);
+    margin-right: calc(50vw - 50%* 2);
+    margin-bottom: 20px;
+}
+
+.card-body {
+    background-color: #456 !important;
+    border-radius: 0 10px 10px 0;
+}
+
+.date-item {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.date-item.active {
+    background-color: #0077B6;
+    color: white;
+    font-weight: bold;
+}
+
+.date-item:hover {
+    text-decoration: none !important;
+    background-color: #CAF0F8;
+    color: #0077B6;
+    transition: 0.2s all ease-in-out;
+}
+
+.film-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.film-card {
+    flex-direction: row !important;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    border: none !important;
+}
+
+.film-showtimes ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h5 {
+    font-family: "Copyright Klim Type Foundry", "TiemposHeadline-Bold", serif !important;
+    font-weight: bold;
+    color: white;
+}
+
+div.film-title {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+div.film-title p {
+    margin-top: 3px;
+    margin-bottom: 0;
+}
+
+.poster-container {
+    position: relative;
+    width: 150px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.poster-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.time {
+    background-color: #00B4D8;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.nav-tabs .nav-link.active {
+    color: white !important;
+    font-weight: bold !important;
+    background-color: #0077B6 !important;
+    border: none !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-tabs .nav-link:not(.nav-link.active) {
+    color: #0077B6 !important;
+    background-color: #CAF0F8 !important;
+    border: none !important;
+}
