@@ -2,8 +2,10 @@
 @extends('layouts.app')
 
 @section('content')
-<x-frise :selectedDate="$selectedDate" />
-<x-cinema-list :selected-cinemas="$selectedCinemas" :cinemas="$cinemas" />
+<div class="options">
+    <x-frise :selectedDate="$selectedDate" />
+    <x-cinema-list :selected-cinemas="$selectedCinemas" :cinemas="$cinemas" />
+</div>
 
 @if($showtimes->isEmpty())
 <p>Aucun film disponible pour la période sélectionnée.</p>
@@ -24,13 +26,16 @@
         <div class="card-body">
             <div class="film-title">
                 <h5 class="film-title">{{ $film->title }}</h5>
-                @if($film->release_date)
-                <p>{{ \Carbon\Carbon::parse($film->release_date)->locale('fr')->isoFormat('YYYY') }}</p>
+            </div>
+            <div class="film-info">
+                @if($film->release_date || $film->duration)
+                <p>
+                    {{ $film->release_date ? \Carbon\Carbon::parse($film->release_date)->locale('fr')->isoFormat('YYYY') : '' }}
+                    {{ $film->release_date && $film->duration ? '·' : '' }}
+                    {{ $film->duration ?: '' }}
+                </p>
                 @endif
             </div>
-            @if($film->duration)
-            <p>{{ $film->duration }}</p>
-            @endif
 
             <div class="film-showtimes">
                 <ul class="nav nav-tabs" id="filmTabs-{{ $film->id }}" role="tablist">
@@ -56,8 +61,17 @@
                             @foreach($cinemaShowtimes->groupBy('day') as $day => $showtimesPerDay)
                             <li class="cinema-showtime-item">
                                 <div class="showtime-slots">
-                                    @foreach(json_decode($showtimesPerDay->first()->horaires) as $horaire)
-                                    <span class="time-slot">{{ $horaire }}</span>
+                                    @foreach(json_decode($cinemaShowtimes->first()->horaires) as $horaire)
+                                    @php
+                                    // Debug - afficher les formats de date
+                                    \Log::info("Date format:", [
+                                    'day' => $day,
+                                    'carbon_format' => \Carbon\Carbon::parse($day)->format('Y-m-d')
+                                    ]);
+                                    @endphp
+                                    <span class="time-slot"
+                                        data-time="{{ $horaire }}"
+                                        data-date="{{ \Carbon\Carbon::parse($day)->format('Y-m-d') }}">{{ $horaire }}</span>
                                     @endforeach
                                 </div>
                             </li>
@@ -73,4 +87,45 @@
     @endforeach
 </div>
 @endif
+
+<script>
+    function updateTimeSlots() {
+        const now = new Date();
+        const today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+
+        console.log('Date actuelle:', today); // Debug
+
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            const time = slot.dataset.time;
+            const date = slot.dataset.date;
+
+            console.log('Comparaison:', {
+                slotDate: date,
+                today,
+                time
+            }); // Debug
+
+            if (date === today) {
+                const [hours, minutes] = time.split('h').map(num => parseInt(num || 0));
+
+                if (hours < currentHours || (hours === currentHours && minutes <= currentMinutes)) {
+                    slot.classList.add('past');
+                    console.log('Marqué comme passé:', time); // Debug
+                } else {
+                    slot.classList.remove('past');
+                }
+            } else {
+                slot.classList.remove('past');
+            }
+        });
+    }
+
+    // Mettre à jour initialement
+    updateTimeSlots();
+
+    // Mettre à jour toutes les minutes
+    setInterval(updateTimeSlots, 60000);
+</script>
 @endsection
